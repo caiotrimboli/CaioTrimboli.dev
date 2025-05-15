@@ -1,0 +1,121 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Cliente {
+    private String nome;
+    private double saldo;
+
+    public Cliente(String nome, double saldoInicial) {
+        this.nome = nome;
+        this.saldo = saldoInicial;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void adicionarCredito(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+            System.out.println("Crédito de R$ " + valor + " adicionado com sucesso!");
+        } else {
+            System.out.println("O valor deve ser positivo!");
+        }
+    }
+
+    public void utilizarCredito(double valor) {
+        if (valor > 0 && valor <= saldo) {
+            saldo -= valor;
+            System.out.println("Crédito de R$ " + valor + " utilizado com sucesso!");
+        } else {
+            System.out.println("Valor inválido ou saldo insuficiente!");
+        }
+    }
+
+    public void exibirSaldo() {
+        System.out.println("Cliente: " + nome);
+        System.out.println("Saldo atual: R$ " + saldo);
+    }
+}
+
+public class Main {
+    private static List<Cliente> clientes = new ArrayList<>();
+
+    public static Cliente buscarCliente(String nome) {
+        for (Cliente cliente : clientes) {
+            if (cliente.getNome().equalsIgnoreCase(nome)) {
+                return cliente;
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        while (true) {
+            System.out.println("\n1. Adicionar Cliente");
+            System.out.println("2. Adicionar Crédito");
+            System.out.println("3. Consultar Saldo");
+            System.out.println("4. Utilizar Crédito");
+            System.out.println("5. Sair");
+            System.out.print("Escolha uma opção: ");
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consumir a quebra de linha
+            
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite o nome do cliente: ");
+                    String nome = scanner.nextLine();
+                    clientes.add(new Cliente(nome, 0));
+                    System.out.println("Cliente adicionado com sucesso!");
+                    break;
+                case 2:
+                    System.out.print("Digite o nome do cliente: ");
+                    String nomeCredito = scanner.nextLine();
+                    Cliente clienteCredito = buscarCliente(nomeCredito);
+                    if (clienteCredito != null) {
+                        System.out.print("Digite o valor do crédito a adicionar: R$ ");
+                        double valor = scanner.nextDouble();
+                        clienteCredito.adicionarCredito(valor);
+                    } else {
+                        System.out.println("Cliente não encontrado!");
+                    }
+                    break;
+                case 3:
+                    System.out.print("Digite o nome do cliente: ");
+                    String nomeConsulta = scanner.nextLine();
+                    Cliente clienteConsulta = buscarCliente(nomeConsulta);
+                    if (clienteConsulta != null) {
+                        clienteConsulta.exibirSaldo();
+                    } else {
+                        System.out.println("Cliente não encontrado!");
+                    }
+                    break;
+                case 4:
+                    System.out.print("Digite o nome do cliente: ");
+                    String nomeUtilizacao = scanner.nextLine();
+                    Cliente clienteUtilizacao = buscarCliente(nomeUtilizacao);
+                    if (clienteUtilizacao != null) {
+                        System.out.print("Digite o valor do crédito a utilizar: R$ ");
+                        double valorUtilizacao = scanner.nextDouble();
+                        clienteUtilizacao.utilizarCredito(valorUtilizacao);
+                    } else {
+                        System.out.println("Cliente não encontrado!");
+                    }
+                    break;
+                case 5:
+                    System.out.println("Saindo...");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+}

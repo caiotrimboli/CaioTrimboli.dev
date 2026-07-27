@@ -136,8 +136,7 @@ const caio = {
 <p>
 
 <a href="mailto:contato.caiotrimboli@gmail.com">
-<img src="https://user-images.githubusercontent.com/17736615/28997664-5aee6e22-79d7-11e7-8b24-23bafe39657b.png">
-</a>
+
 
 <a href="https://linkedin.com/in/caio-trimboli-478a40227">
 <img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white">
